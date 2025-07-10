@@ -1,0 +1,47 @@
+<div class="w-full">
+    <div class="w-full" [class.relative]="label" [class.p-input-icon-left]="startIcon" [class.p-input-icon-right]="endIcon">
+        @if (label) {
+            <label for="in" class="absolute bg-white z-10 top-[-10px] px-2 ml-3 text-xs pointer-events-auto text-[#6b7280]"
+            [class.text-red-600]="control && control.invalid && control.touched">
+                {{label}}
+                @if (required) {
+                    <span class="text-red-500 ml-1">*</span>
+                }
+            </label>
+        }
+        @if (startIcon) {
+            <i [class]="startIcon" [class.text-red-600]="control && control.invalid && control.touched"></i>
+        }
+        <input   
+            [type]="type" 
+            pInputText 
+            class="w-full" 
+            [attr.placeholder]="placeholder" 
+            [attr.aria-describedby]="hint"
+            [attr.name]="name"
+            [attr.required]="required"
+            [minLength]="minLength"
+            [(ngModel)]="inputValue"
+            [ngModelOptions]="{standalone: true}"
+            [class.ng-invalid]="control && control.invalid && control.touched" 
+            [class.ng-dirty]="control && control.invalid && control.touched"  
+            [disabled]="disabled"
+            (input)="setValue($event)"
+        />
+        @if (endIcon) {
+            <i [class]="endIcon" [class.text-red-600]="control && control.invalid && control.touched" (click)="handleEndIconClick()" style="cursor: pointer;"></i>
+        }
+    </div>
+    @if (hint) {
+        <small id="input-hint" class="text-gray-500">{{hint}}</small>
+    }
+
+    @if(control && control.invalid && control.touched) {
+        @if(control.errors!['required']) {
+            <small class="mt-1 text-xs text-red-600">Este campo es requerido</small>
+        }
+    }
+
+    <!-- <small class="text-red-600" *ngIf="isRequiredErrorVisible">Este campo es requerido</small> -->
+
+</div>

@@ -21,7 +21,14 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@routes":["src/app/app.routes.ts"],
+      "@environment":["src/app/environments/environment.ts"],
+      "@layouts/*":["src/app/layouts/*"],
+      "@guards/*":["src/app/guards/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

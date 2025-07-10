@@ -1,0 +1,12 @@
+
+.layout-topbar {
+    position: fixed;
+    z-index: 997;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transition: left .2s;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}

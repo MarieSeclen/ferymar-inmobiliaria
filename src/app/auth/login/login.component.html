@@ -1,1 +1,21 @@
-<p>login works!</p>
+<div class="flex min-h-screen lg:flex-row flex-col">
+  <!-- Mitad izquierda (formulario de inicio de sesión) -->
+  <div class="w-full lg:w-1/2 min-h-screen bg-white flex flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="w-full flex justify-center">
+      <img class="h-[90px] w-auto" src="assets/images/logo.png" alt="FERYMAR Inmobiliaria" />
+    </div>
+
+    <div class="mt-10 mx-auto w-full max-w-sm">
+      <form class="flex flex-col gap-6" [formGroup]="loginFormGroup" (ngSubmit)="onSubmitLogin()">
+        <app-input label="Correo" startIcon="pi pi-envelope" formControlName="email" type="email"/>
+        <app-input label="Contraseña" startIcon="pi pi-lock" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+          [endIcon]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'" (endIconClick)="togglePasswordVisibility()" />
+
+        <app-button content="Ingresar" class="w-full" type="submit"></app-button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mitad derecha (fondo verde) -->
+  <div class="lg:w-1/2 bg-primary-500 hidden lg:flex"></div>
+</div>

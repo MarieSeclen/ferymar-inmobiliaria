@@ -1,0 +1,85 @@
+// Importar variables
+@import "../_variables.scss";
+
+.p-button {
+    background-color: $primaryColor;
+    border: none;
+    color: $textColor;
+  
+    &:enabled:hover,
+    &:enabled:focus,
+    &:enabled:active {
+      background-color: $primaryColorDark;
+      color: $textColor;
+    }
+  
+    &.p-button-outlined {
+      background-color: transparent;
+      border-width: 1px;
+      border-style: solid;
+      border-color: $primaryColor;
+      color: $primaryColor;
+  
+      &:enabled:hover,
+      &:enabled:focus,
+      &:enabled:active {
+        background-color: $primaryColor;
+        color: $textColor;
+      }
+      
+      // Variante outlined para p-button-danger
+      &.p-button-danger {
+        background-color: transparent;
+        border-color: #DC3545;
+        color: #DC3545;
+        
+        &:enabled:hover,
+        &:enabled:focus,
+        &:enabled:active {
+          background-color: #DC3545;
+          color: #FFFFFF;
+        }
+      }
+      
+      // Variante outlined para p-button-success
+      &.p-button-success {
+        background-color: transparent;
+        border-color: #28A745;
+        color: #28A745;
+        
+        &:enabled:hover,
+        &:enabled:focus,
+        &:enabled:active {
+          background-color: #28A745;
+          color: #FFFFFF;
+        }
+      }
+    }
+  // Estilos para diferentes severities
+    &.p-button-danger {
+      background-color: #DC3545; 
+      color: #FFFFFF;
+  
+      &:enabled:hover,
+      &:enabled:focus,
+      &:enabled:active {
+        background-color: darken(#DC3545, 10%);
+        color: #FFFFFF;
+      }
+    }
+  
+    &.p-button-success {
+      background-color: #28A745; 
+      color: #FFFFFF;
+  
+      &:enabled:hover,
+      &:enabled:focus,
+      &:enabled:active {
+        background-color: darken(#28A745, 10%);
+        color: #FFFFFF;
+      }
+    }
+  
+    // Similar para otros estados y variantes...
+  }
+  
