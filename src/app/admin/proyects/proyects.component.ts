@@ -7,13 +7,15 @@ import { RiskLevel } from 'src/app/services/ferymar/models/risk-level';
 import { InputComponent } from 'src/app/shared/input/input.component';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CalendarModule } from 'primeng/calendar';
 import { CommonModule } from '@angular/common';
 import { Stage } from 'src/app/services/ferymar/models/stage';
 
 @Component({
   selector: 'app-proyects',
   standalone: true,
-  imports: [FormsModule, CheckboxModule, DropdownModule, InputComponent, TabViewModule, CommonModule, TableModule],
+  imports: [FormsModule, RadioButtonModule, DropdownModule, InputComponent, TabViewModule, CommonModule, TableModule, CalendarModule],
   templateUrl: './proyects.component.html',
   styleUrl: './proyects.component.scss'
 })
@@ -23,12 +25,14 @@ export class ProyectsComponent implements OnInit {
 
   industry: Industry[] | undefined;
   selectedindustry: Industry | undefined;
-  option: string[] = [];
+  option: string = 'internalproyect';
   stages: Stage[] = [];
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  closingDate: Date | undefined;
 
   constructor(
   ) {
-
   }
 
   ngOnInit(): void {

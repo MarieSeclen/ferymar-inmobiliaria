@@ -1,1 +1,74 @@
-<p>budgets works!</p>
+<div class="grid grid-cols-4 gap-4 p-4">
+    <!-- Contenido principal (3/4 de la pantalla) -->
+    <div class="col-span-3 space-y-7">
+        <div>
+            <app-input label="Nombre del presupuesto" startIcon="pi pi-folder"></app-input>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p-dropdown [options]="distributionMethod" [(ngModel)]="selectedDistributionMethod" optionLabel="name"
+                placeholder="Método Distribución" styleClass="w-full" />
+
+            <app-input label="Proyecto" startIcon="pi pi-map-marker" endIcon="pi pi-search"></app-input>
+        </div>
+    </div>
+
+    <!-- Indicadores (1/4 de la pantalla) -->
+     <div class="col-span-1">
+        <div class="space-y-3">
+            <app-input label="Código Presupuesto" startIcon="pi pi-file" [disabled]="true"></app-input>
+
+            <div class=" p-3 ">
+                <label for="icondisplay" class="font-bold block mb-2">Valido desde </label>
+                <p-calendar [(ngModel)]="startDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" placeholder="Seleccione la fecha" />
+            </div>
+            <div class=" p-3 ">
+                <label for="icondisplay" class="font-bold block mb-2">Valido hasta </label>
+                <p-calendar [(ngModel)]="endDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"  placeholder="Seleccione la fecha" />
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="card">
+    <p-tabView>
+        <p-tabPanel header="Distribución">
+            <p-table [value]="distribution" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="10">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nombre de presupuesto</th>
+                        <th>Porcentaje inicial</th>
+                        <th>Método de redondeo</th>
+                        <th>Centro de Costo 1</th>
+                        <th>Centro de Costo 2</th>
+                        <th>Centro de Costo 3</th>
+                        <th>Centro de Costo 4</th>
+                        <th>Proyecto</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distribution>
+                    <tr>
+                        <td>{{ distribution.nombrePresupuesto }}</td>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <span>{{ distribution.porcentajeInicial }}%</span>
+                                <div class="w-20 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-primary-300 h-2 rounded-full"
+                                        [style.width.%]="distribution.porcentajeInicial">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ distribution.metodoRedondeo }}</td>
+                        <td>{{ distribution.centroCosto1 }}</td>
+                        <td>{{ distribution.centroCosto2 }}</td>
+                        <td>{{ distribution.centroCosto3 }}</td>
+                        <td>{{ distribution.centroCosto4 }}</td>
+                        <td>{{ distribution.proyecto }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
+</div>
