@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ButtonComponent } from 'src/app/shared/button/button.component';
 import { InputComponent } from 'src/app/shared/input/input.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +30,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private sharedService: SharedService
-
+    private sharedService: SharedService,
+    private authService: AuthService
     //add Services
   ) {
     this.loginFormGroup = this.fb.group({
@@ -50,14 +52,19 @@ export class LoginComponent {
         // Login exitoso
         this.loginError = false;
 
-        // Guardar estado de autenticación en localStorage
-        localStorage.setItem('isAuthenticated', 'true');
-        localStorage.setItem('userEmail', raw.email);
+        this.authService.login(raw.email);
 
         this.router.navigate(['/admin']);
 
       } else {
         this.loginError = true;
+        Swal.fire({
+          icon: 'error',
+          title: 'Credenciales incorrectas',
+          text: 'El email o la contraseña son incorrectos. Por favor, inténtalo de nuevo.',
+          confirmButtonText: 'Intentar nuevamente',
+          confirmButtonColor: '#3085d6'
+        });
       }
 
     } else {

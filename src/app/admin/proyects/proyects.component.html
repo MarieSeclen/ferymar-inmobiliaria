@@ -1,6 +1,6 @@
-<div class="grid grid-cols-4 gap-4 p-4">
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4">
     <!-- Contenido principal (3/4 de la pantalla) -->
-    <div class="col-span-3 space-y-7">
+    <div class="lg:col-span-3 space-y-7">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
             <div class="flex items-center">
                 <p-radioButton [(ngModel)]="option" label="Proyecto interno" name="internalproyect"
@@ -27,9 +27,15 @@
             <app-input label="Nombre del proyecto" startIcon="pi pi-folder"></app-input>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <app-input label="Empleado Responsable" startIcon="pi pi-user" endIcon="pi pi-search"></app-input>
-            <app-input label="Sede/Sucursal " startIcon="pi pi-map-marker" endIcon="pi pi-search"></app-input>
+            <p-inputGroup>
+                <app-input label="Empleado Responsable" startIcon="pi pi-user" class="input-group-left"></app-input>
+                <button type="button" pButton icon="pi pi-search"></button>
+            </p-inputGroup>
 
+            <p-inputGroup>
+                <app-input label="Sede/Sucursal " startIcon="pi pi-map-marker" class="input-group-left"></app-input>
+                <button type="button" pButton icon="pi pi-search"></button>
+            </p-inputGroup>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -45,21 +51,33 @@
     </div>
 
     <!-- Indicadores (1/4 de la pantalla) -->
-    <div class="col-span-1">
-        <div class="space-y-3">
-            <app-input label="Código Proyecto" startIcon="pi pi-file" [disabled]="true"></app-input>
+    <div class="lg:col-span-1 lg:px-4">
+        <div class="lg:p-3">
+            <div class="mb-6">
+                <app-input label="Completado" startIcon="pi pi-file"></app-input>
+            </div>
 
-            <div class=" p-3 ">
+            <div class="mb-6">
+                <app-input label="Código Proyecto" startIcon="pi pi-file" [disabled]="true"></app-input>
+            </div>
+
+            <div class="mb-6">
                 <label for="icondisplay" class="font-bold block mb-2">Fecha Inicio </label>
-                <p-calendar [(ngModel)]="startDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" placeholder="Seleccionar fecha inicio" />
+                <p-calendar [(ngModel)]="startDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"
+                    placeholder="Seleccionar fecha inicio" styleClass="w-full" />
             </div>
-            <div class=" p-3 ">
+            <div class="mb-6">
                 <label for="icondisplay" class="font-bold block mb-2">Fecha Fin </label>
-                <p-calendar [(ngModel)]="endDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"  placeholder="Seleccionar fecha fin" />
+                <p-calendar [(ngModel)]="endDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"
+                    placeholder="Seleccionar fecha fin" styleClass="w-full" />
             </div>
-            <div class=" p-3 ">
+            <div class="mb-6">
                 <label for="icondisplay" class="font-bold block mb-2">Fecha Cierre </label>
-                <p-calendar [(ngModel)]="closingDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"  placeholder="Seleccionar fecha cierre"/>
+                <p-calendar [(ngModel)]="closingDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"
+                    placeholder="Seleccionar fecha cierre" styleClass="w-full" />
+            </div>
+            <div class="mb-6">
+                <app-input label="Estado" startIcon="pi pi-file"></app-input>
             </div>
         </div>
     </div>

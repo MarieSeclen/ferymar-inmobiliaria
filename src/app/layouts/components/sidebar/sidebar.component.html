@@ -10,11 +10,38 @@
           <ul class="space-y-3">
             <li *ngFor="let item of menuItems" [ngClass]="{'active': activeLink === item.id}"
               style="-webkit-tap-highlight-color: transparent;">
-              <a [routerLink]="item.route" (click)="setActiveLink(item.id); closeCallback($event)"
-                class="flex items-center py-3 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:bg-primary-out cursor-pointer select-none no-underline text-inherit">
-                <i class="mr-3" [ngClass]="item.icon"> </i>
-                {{ item.label }}
-              </a>
+
+              <div *ngIf="!item.children" [ngClass]="{'active': isActiveRoute(item.route)}">
+                <a [routerLink]="item.route" (click)="setActiveLink(item.id); closeCallback($event)"
+                  class="flex items-center py-3 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:bg-primary-out cursor-pointer select-none no-underline text-inherit">
+                  <i class="mr-3" [ngClass]="item.icon"> </i>
+                  {{ item.label }}
+                </a>
+              </div>
+
+              <!-- Menú con submenús -->
+              <div *ngIf="item.children">
+                <div (click)="toggleSubmenu(item)"
+                  class="flex items-center justify-between py-3 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:bg-primary-out cursor-pointer select-none">
+                  <div class="flex items-center">
+                    <i class="mr-3" [ngClass]="item.icon"></i>
+                    {{ item.label }}
+                  </div>
+                  <i class="pi transition-transform duration-200"
+                    [ngClass]="item.isExpanded ? 'pi-chevron-down' : 'pi-chevron-right'"></i>
+                </div>
+
+                <!-- Submenús -->
+                <ul *ngIf="item.isExpanded" class="ml-10 mt-2 space-y-2 border-l-2 border-gray-300 pl-4">
+                  <li *ngFor="let child of item.children" [ngClass]="{'active': isActiveRoute(child.route)}">
+                    <a [routerLink]="child.route" (click)="setActiveLink(child.id); closeCallback($event)"
+                      class="flex items-center py-2 px-3 rounded-lg transition duration-300 ease-in-out hover:bg-primary-out cursor-pointer select-none no-underline text-inherit text-sm">
+                      <i class="mr-3" [ngClass]="child.icon"></i>
+                      {{ child.label }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
@@ -42,11 +69,40 @@
         <ul class="space-y-3">
           <li *ngFor="let item of menuItems" [ngClass]="{'active': activeLink === item.id}"
             style="-webkit-tap-highlight-color: transparent;">
-            <a [routerLink]="item.route" (click)="setActiveLink(item.id)"
-              class="flex items-center py-3 px-4 rounded-full transition ease-in-out transform hover:scale-105 hover:bg-primary-out cursor-pointer select-none text-inherit no-underline">
-              <i class="mr-3" [ngClass]="item.icon"> </i>
-              {{ item.label }}
-            </a>
+
+            <!-- Menú sin submenús -->
+            <div *ngIf="!item.children" [ngClass]="{'active': isActiveRoute(item.route)}">
+              <a [routerLink]="item.route" (click)="setActiveLink(item.id)"
+                class="flex items-center py-3 px-4 rounded-full transition ease-in-out transform hover:scale-105 hover:bg-primary-out cursor-pointer select-none text-inherit no-underline">
+                <i class="mr-3" [ngClass]="item.icon"> </i>
+                {{ item.label }}
+              </a>
+            </div>
+
+            <!-- Menú con submenús -->
+            <div *ngIf="item.children">
+              <div (click)="toggleSubmenu(item)"
+                class="flex items-center justify-between py-3 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:bg-primary-out cursor-pointer select-none">
+                <div class="flex items-center">
+                  <i class="mr-3" [ngClass]="item.icon"></i>
+                  {{ item.label }}
+                </div>
+                <i class="pi transition-transform duration-200"
+                  [ngClass]="item.isExpanded ? 'pi-chevron-down' : 'pi-chevron-right'"></i>
+              </div>
+
+              <!-- Submenús -->
+              <ul *ngIf="item.isExpanded" class="ml-10 mt-2 space-y-2 border-l-2 border-gray-300 pl-4">
+                <li *ngFor="let child of item.children" [ngClass]="{'active': isActiveRoute(child.route)}">
+                  <a [routerLink]="child.route" (click)="setActiveLink(child.id); closeCallback($event)"
+                    class="flex items-center py-2 px-3 rounded-lg transition duration-300 ease-in-out hover:bg-primary-out cursor-pointer select-none no-underline text-inherit text-sm">
+                    <i class="mr-3" [ngClass]="child.icon"></i>
+                    {{ child.label }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+
           </li>
         </ul>
       </div>

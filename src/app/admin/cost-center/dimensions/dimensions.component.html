@@ -1,0 +1,18 @@
+<p-table [value]="dimensiones" class="custom-table">
+    <ng-template pTemplate="header">
+        <tr>
+            <th><i class="pi pi-file"></i> Nombre Dimensión</th>
+            <th><i class="pi pi-building"></i> Descripción Dimensión</th>
+            <th>Activo</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dimension>
+        <tr>
+            <td> {{ dimension.nombre }} </td>
+            <td>{{ dimension.descripcion }} </td>
+            <td class="text-center">
+                <p-checkbox [(ngModel)]="dimension.activo" binary="true"></p-checkbox>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

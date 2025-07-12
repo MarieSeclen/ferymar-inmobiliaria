@@ -4,6 +4,8 @@ export interface MenuItem {
   route: string;
   icon: string;
   roles: string[];
+  children?: MenuItem[];
+  isExpanded?: boolean;
 }
 
 export const MENU_ITEMS: MenuItem[] = [
@@ -26,6 +28,23 @@ export const MENU_ITEMS: MenuItem[] = [
     label: 'Centro de Costos',
     route: 'centro-costos',
     icon: 'pi pi-chart-pie',
-    roles: ['ADMIN']
+    roles: ['ADMIN'],
+    isExpanded: false,
+    children: [
+      {
+        id: 'dimensiones',
+        label: 'Dimensiones',
+        route: 'centro-costos/dimensiones',
+        icon: 'pi pi-sitemap',
+        roles: ['ADMIN']
+      },
+      {
+        id: 'centros-costos',
+        label: 'Centros de Costos',
+        route: 'centro-costos/centros',
+        icon: 'pi pi-chart-line',
+        roles: ['ADMIN']
+      }
+    ]
   }
 ]; 

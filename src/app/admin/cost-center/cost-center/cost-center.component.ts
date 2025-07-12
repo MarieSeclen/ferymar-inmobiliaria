@@ -15,16 +15,19 @@ import { DistributionMethod } from 'src/app/services/ferymar/models/distribution
 import { InputComponent } from 'src/app/shared/input/input.component';
 
 @Component({
-  selector: 'app-budgets',
+  selector: 'app-cost-center',
   standalone: true,
   imports: [FormsModule, RadioButtonModule, DropdownModule, InputComponent,
-     TabViewModule, CommonModule, TableModule, CalendarModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule],
-  templateUrl: './budgets.component.html',
-  styleUrl: './budgets.component.scss'
+    TabViewModule, CommonModule, TableModule, CalendarModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule],
+  templateUrl: './cost-center.component.html',
+  styleUrl: './cost-center.component.scss'
 })
-export class BudgetsComponent implements OnInit{
-  distributionMethod: DistributionMethod[] | undefined;
-  selectedDistributionMethod: DistributionMethod | undefined;
+export class CostCenterComponent implements OnInit {
+  dimension: any[] = [];
+  selectedDimension: any | undefined;
+
+  tipo: any[] = [];
+  selectedTipo: any | undefined;
 
   option: string[] = [];
   distribution: Distribution[] = [];
@@ -36,14 +39,19 @@ export class BudgetsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.distributionMethod = [
-      { name: 'Igual a', code: 'I' },
-      { name: 'Orden ascendente', code: 'O' },
-      { name: 'Series descendentes', code: 'S' }
+    this.dimension = [
+      { name: 'Sede', code: 'S' },
+      { name: 'Proyecto', code: 'PY' },
+      { name: 'Proceso', code: 'PC' },
+      { name: 'Sub Proceso', code: 'SB' }
     ];
 
+    this.tipo = [
+      { name: 'Costo', code: 'C' },
+      { name: 'Beneficio', code: 'B' }];
 
     this.loadDistributionData();
+
   }
 
   loadDistributionData(): void {

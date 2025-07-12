@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { Sidebar, SidebarModule } from 'primeng/sidebar';
 import { MENU_ITEMS, MenuItem } from '../../../config/menu-config';
 import { SharedService } from 'src/app/services/shared.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,7 +24,9 @@ export class SidebarComponent implements OnInit {
   constructor(
     public sharedService: SharedService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
+
   ) {
     this.sharedService.sidebar$.subscribe(v => {
       this.visibleSidebar = v
@@ -42,15 +45,26 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-   private loadMenuItems(): void {
+  private loadMenuItems(): void {
     this.menuItems = MENU_ITEMS;
-    
+
   }
 
   updateActiveLinkFromUrl(url: string): void {
-    const mainSegment = url.split('/').filter(segment => segment.length > 0 && segment !== 'admin')[0];
-    if (mainSegment) {
-      this.activeLink = mainSegment;
+    const segments = url.split('/').filter(segment => segment.length > 0 && segment !== 'admin');
+    if (segments.length > 0) {
+      this.activeLink = segments.join('/');
+
+      this.menuItems.forEach(item => {
+        if (item.children) {
+          const hasActiveChild = item.children.some(child =>
+            child.route && url.includes(child.route)
+          );
+          if (hasActiveChild) {
+            item.isExpanded = true;
+          }
+        }
+      });
     }
   }
 
@@ -60,10 +74,21 @@ export class SidebarComponent implements OnInit {
 
   onLogout(): void {
     this.sharedService.hideSideBar();
-    this.router.navigate(['/auth/login'])
+    this.authService.logout();
   }
 
   setActiveLink(link: string): void {
     this.activeLink = link;
+  }
+
+  toggleSubmenu(item: MenuItem): void {
+    if (item.children) {
+      item.isExpanded = !item.isExpanded;
+    }
+  }
+
+  isActiveRoute(route?: string): boolean {
+    if (!route) return false;
+    return this.router.url.includes(route);
   }
 }

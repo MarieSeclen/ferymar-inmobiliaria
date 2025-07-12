@@ -2,23 +2,28 @@
     <!-- Contenido principal (3/4 de la pantalla) -->
     <div class="lg:col-span-3 space-y-7">
         <div>
-            <app-input label="Nombre del presupuesto" startIcon="pi pi-folder"></app-input>
+            <app-input label="Centro de Costo" startIcon="pi pi-folder"></app-input>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <p-dropdown [options]="distributionMethod" [(ngModel)]="selectedDistributionMethod" optionLabel="name"
-                placeholder="Método Distribución" styleClass="w-full" />
-
-            <p-inputGroup>
-                <app-input label="Proyecto" startIcon="pi pi-map-marker" class="input-group-left"></app-input>
+        <div>
+            <app-input label="Nombre del Centro de Costo" startIcon="pi pi-folder"></app-input>
+        </div>
+        <p-inputGroup>
+                <app-input label="Empleado Responsable" startIcon="pi pi-user" class="input-group-left"></app-input>
                 <button type="button" pButton icon="pi pi-search"></button>
             </p-inputGroup>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p-dropdown [options]="dimension" [(ngModel)]="selectedDimension" optionLabel="name"
+                placeholder="Dimensión" styleClass="w-full" />
+
+             <p-dropdown [options]="tipo" [(ngModel)]="selectedTipo" optionLabel="name"
+                placeholder="Tipo CC" styleClass="w-full" />
         </div>
     </div>
 
     <!-- Indicadores (1/4 de la pantalla) -->
     <div class="lg:col-span-1">
         <div class="space-y-3">
-            <app-input label="Código Presupuesto" startIcon="pi pi-file" [disabled]="true"></app-input>
+            <app-input label="Código Clasificador" startIcon="pi pi-file" [disabled]="true"></app-input>
 
             <div class=" p-3 ">
                 <label for="icondisplay" class="font-bold block mb-2">Valido desde </label>
