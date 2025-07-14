@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private router: Router) {  }
+  constructor(private router: Router) { }
 
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
@@ -16,7 +16,16 @@ export class AuthService {
     if (!this.isBrowser()) {
       return false;
     }
-    return localStorage.getItem('isAuthenticated') === 'true';
+    const isAuth = localStorage.getItem('isAuthenticated');
+    const userEmail = localStorage.getItem('userEmail');
+
+    if (!userEmail || userEmail.trim() === '') {
+      this.clearSession();
+      return false;
+    }
+
+    return isAuth === 'true' && userEmail != null && userEmail.trim() !== '';
+
   }
 
   login(email: string): void {
@@ -25,12 +34,23 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userEmail');
+    if (this.isBrowser()) {
+      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('userEmail');
+    }
     this.router.navigate(['/auth/login']);
   }
 
   getUserEmail(): string | null {
+    if (!this.isBrowser()) {
+      return null;
+    }
     return localStorage.getItem('userEmail');
+  }
+
+  clearSession(): void {
+    if (this.isBrowser()) {
+      localStorage.clear();
+    }
   }
 }
