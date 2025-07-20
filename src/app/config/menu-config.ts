@@ -46,5 +46,12 @@ export const MENU_ITEMS: MenuItem[] = [
         roles: ['ADMIN']
       }
     ]
-  }
+  },
+  {
+    id: 'oportunidades',
+    label: 'Oportunidades',
+    route: 'oportunidades',
+    icon: 'pi pi-calendar',
+    roles: ['ADMIN']
+  },
 ]; 

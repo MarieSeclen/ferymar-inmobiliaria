@@ -1,0 +1,29 @@
+::ng-deep .input-group-left input {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+}
+
+p-inputgroup {
+    width: 100% !important;
+    display: flex !important;
+
+    app-input {
+        flex: 1 !important;
+        width: 100% !important;
+    }
+
+    .p-button {
+        flex-shrink: 0 !important;
+    }
+}
+
+.p-inputgroup .p-button {
+  background: #236433 !important;
+  border-color: #236433 !important;
+}
+
+.p-inputgroup .p-button:hover {
+  background: #236433 !important;
+  border-color: #236433 !important;
+}

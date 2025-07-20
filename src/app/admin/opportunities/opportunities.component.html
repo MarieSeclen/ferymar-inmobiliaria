@@ -1,0 +1,163 @@
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4">
+    <!-- Contenido principal (3/4 de la pantalla) -->
+    <div class="lg:col-span-3 space-y-7">
+        <app-input label="Nombre de Oportunidad" startIcon="pi pi-folder"></app-input>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <p-inputGroup>
+                <app-input label="Cliente" startIcon="pi pi-user" class="input-group-left"></app-input>
+                <button type="button" pButton icon="pi pi-search"></button>
+            </p-inputGroup>
+            <app-input label="Nombre Cliente" startIcon="pi pi-folder"></app-input>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <app-input label="Departamento" startIcon="pi pi-map-marker"></app-input>
+            <app-input label="Provincia" startIcon="pi pi-map-marker"></app-input>
+            <app-input label="Distrito" startIcon="pi pi-map-marker"></app-input>
+        </div>
+
+        <p-inputGroup>
+            <app-input label="Empleado Responsable" startIcon="pi pi-user" class="input-group-left"></app-input>
+            <button type="button" pButton icon="pi pi-search"></button>
+        </p-inputGroup>
+
+    </div>
+
+    <!-- Indicadores (1/4 de la pantalla) -->
+    <div class="lg:col-span-1 lg:px-4">
+        <div class="lg:p-3">
+            <div class="mb-6">
+                <app-input label="Número Oportunidad" startIcon="pi pi-file" [disabled]="true"></app-input>
+            </div>
+            <div class="mb-6">
+                <app-input label="Estado" startIcon="pi pi-file"></app-input>
+            </div>
+
+            <div class="mb-6">
+                <label for="icondisplay" class="font-bold block mb-2">Fecha Inicio </label>
+                <p-calendar [(ngModel)]="startDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"
+                    placeholder="Seleccionar fecha inicio" styleClass="w-full" />
+            </div>
+            <div class="mb-6">
+                <label for="icondisplay" class="font-bold block mb-2">Fecha Cierre </label>
+                <p-calendar [(ngModel)]="closingDate" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"
+                    placeholder="Seleccionar fecha cierre" styleClass="w-full" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <p-tabView>
+        <p-tabPanel header="General">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4">
+                <div class="lg:col-span-2 space-y-7">
+                    <p-inputGroup>
+                        <app-input label="Empleado Responsable" startIcon="pi pi-user"
+                            class="input-group-left"></app-input>
+                        <button type="button" pButton icon="pi pi-search"></button>
+                    </p-inputGroup>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p-dropdown [options]="industry" [(ngModel)]="selectedindustry" optionLabel="name"
+                                placeholder="Industria" styleClass="w-full" />
+                        </div>
+                        <div>
+                            <p-dropdown [options]="informationSource" [(ngModel)]="selectedinformationSource"
+                                optionLabel="name" placeholder="Fuente Información" styleClass="w-full" />
+                        </div>
+                    </div>
+                    <div>
+                        <p-floatLabel>
+                            <textarea id="float-input" rows="5" cols="50" pInputTextarea [(ngModel)]="comments"
+                                [autoResize]="true"></textarea>
+                            <label for="float-input">Comentarios</label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 lg:px-4">
+                    <div class="mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <app-input label="Cierre Planificado en:" startIcon="pi pi-user"></app-input>
+                            <p-dropdown [options]="seasonality" [(ngModel)]="selectedseasonality" optionLabel="name"
+                                placeholder="Estacionalidad" styleClass="w-full" />
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p-calendar [(ngModel)]="expectedClosingDate" [iconDisplay]="'input'" [showIcon]="true"
+                                    inputId="icondisplay" placeholder="Fecha Cierre Prevista" styleClass="w-full" />
+                            </div>
+                            <div>
+                                <p-dropdown [options]="interestLevel" [(ngModel)]="selectedInterestLevel"
+                                    optionLabel="name" placeholder="Nivel de Interés" styleClass="w-full" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <app-input label="Monto Potencial" startIcon="pi pi-dollar"></app-input>
+                            <app-input label="Monto Ponderado" startIcon="pi pi-dollar"></app-input>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <app-input label="% Ganancia Bruta" startIcon="pi pi-dollar"></app-input>
+                            <app-input label="Ganancia Bruta" startIcon="pi pi-dollar"></app-input>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Etapas">
+            <p-table [value]="stagesOpportunities" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true"
+                [rows]="10">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Cierre</th>
+                        <th>Empleado de Ventas</th>
+                        <th>Etapa</th>
+                        <th>%</th>
+                        <th>Monto Potencial</th>
+                        <th>Importe Ponderado</th>
+                        <th>Clase de Documento</th>
+                        <th>Nº de Documento</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-stagesOpportunities>
+                    <tr>
+                        <td>{{ stagesOpportunities.fechaInicio}}</td>
+                        <td>{{ stagesOpportunities.fechaCierre }}</td>
+                        <td>{{ stagesOpportunities.empleadoVentas }}</td>
+                        <td>{{ stagesOpportunities.etapa }}</td>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <span>{{ stagesOpportunities.porcentaje }}%</span>
+                                <div class="w-20 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-primary-300 h-2 rounded-full" [style.width.%]="stagesOpportunities.porcentaje">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ stagesOpportunities.montoPotencial}}</td>
+                        <td>{{ stagesOpportunities.importePonderado}}</td>
+                        <td>{{ stagesOpportunities.claseDocumento}}</td>
+                        <td>{{ stagesOpportunities.numeroDocumento}}</td>
+
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
+</div>
