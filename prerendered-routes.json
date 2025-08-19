@@ -1,0 +1,13 @@
+{
+  "routes": [
+    "/admin",
+    "/admin/centro-costos",
+    "/admin/centro-costos/centros",
+    "/admin/centro-costos/dimensiones",
+    "/admin/oportunidades",
+    "/admin/presupuestos",
+    "/admin/proyectos",
+    "/auth",
+    "/auth/login"
+  ]
+}
